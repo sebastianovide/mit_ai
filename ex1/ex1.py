@@ -58,6 +58,24 @@ class Exercise:
             
         return matches
 
+    def depth(self, exp):
+        """
+        >>> Exercise().depth('x')
+        0
+        >>> Exercise().depth(1)
+        0
+        >>> Exercise().depth(('expt', 'x', 2))
+        1
+        >>> Exercise().depth(('+', ('expt', 'x', 2), ('expt', 'y', 2)))
+        2
+        >>> Exercise().depth(('/', ('expt', 'x', 5), ('expt', ('-', ('expt', 'x', 2), 1),('/', 5, 2))))
+        4
+        """
+        if (isinstance (exp, (str, int, float))):
+            return 0
+        
+        return 1 + max(self.depth(x) for x in exp)
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
