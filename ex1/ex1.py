@@ -76,6 +76,25 @@ class Exercise:
         
         return 1 + max(self.depth(x) for x in exp)
 
+    def tree_ref(self, tree, idx):
+        """
+        >>> tree = (((1, 2), 3), (4, (5, 6)), 7, (8, 9, 10))
+        >>> len(tree)
+        4
+        >>> Exercise().tree_ref(tree,(3,1))
+        9
+        >>> Exercise().tree_ref(tree,(0,))
+        ((1, 2), 3)
+        >>> Exercise().tree_ref(tree,(2,))
+        7
+        
+        """
+        el = tree[idx[0]]
+        if len(idx) == 1:
+            return el
+        
+        return self.tree_ref(el, idx[1:])
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
